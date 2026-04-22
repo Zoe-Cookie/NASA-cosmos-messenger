@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/apod_model.dart';
 
 class ApiService {
@@ -6,7 +7,7 @@ class ApiService {
 
   final String _baseUrl = 'https://api.nasa.gov/planetary/apod';
 
-  final String _apiKey = 'DEMO_KEY';
+  final String _apiKey = dotenv.env['NASA_API_KEY'] ?? 'DEMO_KEY';
 
   Future<ApodModel> getApodByDate(String date) async {
     try {
