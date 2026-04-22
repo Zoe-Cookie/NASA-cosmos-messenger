@@ -14,7 +14,8 @@ class NasaCosmosMessenger extends StatelessWidget {
       title: 'NASA Cosmos Messenger',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.black)),
-      home: NavigationApp());
+      home: NavigationApp(),
+    );
   }
 }
 
@@ -33,24 +34,24 @@ class _NavigationAppState extends State<NavigationApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(_pageTitles[_currentIndex])),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Ionicons.planet_outline),
-              activeIcon: Icon(Ionicons.planet),
-              label: 'Nova',
-            ),
-            BottomNavigationBarItem(icon: Icon(Ionicons.star_outline), activeIcon: Icon(Ionicons.star), label: '收藏'),
-          ],
-        ),
-        body: <Widget>[][_currentIndex],
-      );
+      appBar: AppBar(title: Text(_pageTitles[_currentIndex])),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Ionicons.planet_outline),
+            activeIcon: Icon(Ionicons.planet),
+            label: 'Nova',
+          ),
+          BottomNavigationBarItem(icon: Icon(Ionicons.star_outline), activeIcon: Icon(Ionicons.star), label: '收藏'),
+        ],
+      ),
+      body: <Widget>[Text(""), Text("")][_currentIndex],
+    );
   }
 }
