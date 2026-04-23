@@ -29,4 +29,15 @@ class ApodModel {
   String get displayImageUrl => mediaType == 'video' ? (thumbnailUrl ?? '') : url;
   bool get isVideo => mediaType == 'video';
   String? get videoUrl => isVideo ? url : null;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'date': date,
+      'explanation': explanation,
+      'title': title,
+      'url': url,
+      'media_type': mediaType,
+      'thumbnail_url': thumbnailUrl,
+    };
+  }
 }
