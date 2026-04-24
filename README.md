@@ -7,7 +7,7 @@
 
 ## 架構說明
 
-採用 **Clean Architecture** 分層，依職責劃分三個主要層次：
+採用**分層架構**，依職責劃分四個主要目錄：
 
 ```
 lib/
@@ -38,7 +38,7 @@ lib/
 
 - Event 與 State 嚴格分離，邏輯清晰易讀
 - 比 BLoC 輕量，避免為簡單場景過度設計
-- State 為 immutable data class，搭配 `copyWith` 方便更新，也容易撰寫單元測試
+- State 為以 `final` 欄位組成的 immutable class，搭配 `copyWith` 方便更新狀態
 
 ---
 
