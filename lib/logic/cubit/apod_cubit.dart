@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:nasa_cosmos_messenger/data/models/apod_model.dart';
@@ -36,8 +37,8 @@ class ApodCubit extends Cubit<ApodState> {
 
       final novaReply = ChatMessage(
         text: extractedDate != null 
-            ? '這是 $targetDate 宇宙的樣子：' 
-            : '為你為展示今天的太空圖：',
+            ? '這是 $targetDate 宇宙的樣子：\n' 
+            : '為你為展示今天的太空圖：\n',
         isUser: false,
         apod: apod,
       );
@@ -46,6 +47,8 @@ class ApodCubit extends Cubit<ApodState> {
       emit(state.copyWith(messages: newMessages, isTyping: false));
 
     } catch (e) {
+      debugPrint('Error: ${e.toString()}');
+
       final errorReply = ChatMessage(
         text: '抱歉，目前無法獲取太空圖，請確認網路狀態或更換一個日期試試看喔！',
         isUser: false,
