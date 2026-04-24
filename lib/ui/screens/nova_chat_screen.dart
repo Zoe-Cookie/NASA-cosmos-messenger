@@ -111,36 +111,46 @@ class _NovaChatScreenState extends State<NovaChatScreen> {
           ),
 
           const Divider(height: 1),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            color: Theme.of(context).cardColor,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                      hintText: '輸入或選擇日期...',
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                      suffixIcon: IconButton(icon: const Icon(Icons.calendar_month), onPressed: _selectDate),
+          BlocBuilder<ApodCubit, ApodState>(
+            builder: (context, state) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                color: Theme.of(context).cardColor,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        enabled: !state.isTyping,
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          hintText: '輸入或選擇日期...',
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_month),
+                            onPressed: state.isTyping ? null : _selectDate,
+                          ),
+                        ),
+                        onSubmitted: (text) {
+                          context.read<ApodCubit>().sendMessage(text);
+                          _textController.clear();
+                        },
+                      ),
                     ),
-                    onSubmitted: (text) {
-                      context.read<ApodCubit>().sendMessage(text);
-                      _textController.clear();
-                    },
-                  ),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      color: Theme.of(context).colorScheme.primary,
+                      onPressed: state.isTyping
+                          ? null
+                          : () {
+                              context.read<ApodCubit>().sendMessage(_textController.text);
+                              _textController.clear();
+                            },
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  color: Theme.of(context).colorScheme.primary,
-                  onPressed: () {
-                    context.read<ApodCubit>().sendMessage(_textController.text);
-                    _textController.clear();
-                  },
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),

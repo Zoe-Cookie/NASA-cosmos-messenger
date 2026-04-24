@@ -19,25 +19,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(splashColor: Colors.transparent, highlightColor: Colors.transparent),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Ionicons.planet_outline),
-              activeIcon: Icon(Ionicons.planet),
-              label: 'Nova',
-            ),
-            BottomNavigationBarItem(icon: Icon(Ionicons.star_outline), activeIcon: Icon(Ionicons.star), label: '收藏'),
-          ],
-        ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Ionicons.planet_outline),
+            selectedIcon: Icon(Ionicons.planet),
+            label: 'Nova',
+          ),
+          NavigationDestination(
+            icon: Icon(Ionicons.star_outline),
+            selectedIcon: Icon(Ionicons.star),
+            label: '收藏',
+          ),
+        ],
       ),
     );
   }
